@@ -38,7 +38,7 @@ def insert_movie(url):
     soup = BeautifulSoup(data.text, 'html.parser')
 
     try:
-        name = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > h3 > a').text
+        title = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > h3 > a').text
         img_url = soup.select_one('#content > div.article > div.mv_info_area > div.poster > a > img')['src']
         rate = soup.select_one('#content > div.article > div.section_group.section_group_frst > div > div > div.score_area > div.netizen_score > div > div > em').text
         time = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd > p > span:nth-child(3)').text
@@ -49,7 +49,7 @@ def insert_movie(url):
             desc += genre.text + ' '
 
         doc = {
-            'name': name,
+            'title': title,
             'img': img_url,
             'url': url,
             'like': 0,
@@ -59,7 +59,7 @@ def insert_movie(url):
         }
 
         db.movie.insert_one(doc)
-        print('완료!', name)
+        print('완료!', title)
     except:
         pass
 
