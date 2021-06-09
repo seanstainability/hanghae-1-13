@@ -7,7 +7,7 @@ function like(movie_id, user_id) {
         success: function (response) {
             if (response.result == 'success') {
                 alert(response['msg']);
-                window.location.reload()
+                window.location.reload();
             }
         }
     });
