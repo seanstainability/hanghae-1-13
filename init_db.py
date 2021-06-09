@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
+# client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://test:test@localhost', 27017)
+# client = MongoClient('내AWS아이피', 27017, username="아이디", password="비밀번호")
 db = client.horror
 
 
