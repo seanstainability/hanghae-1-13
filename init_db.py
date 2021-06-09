@@ -39,17 +39,18 @@ def insert_movie(url):
 
     try:
         title = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > h3 > a').text
+        title_en = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > strong').text
         img_url = soup.select_one('#content > div.article > div.mv_info_area > div.poster > a > img')['src']
         rate = soup.select_one('#content > div.article > div.section_group.section_group_frst > div > div > div.score_area > div.netizen_score > div > div > em').text
         time = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd > p > span:nth-child(3)').text
         desc_list = soup.select('#content > div.article > div.mv_info_area > div.mv_info > dl > dd > p > span:nth-child(1) > a')
-
         desc = ''
         for genre in desc_list:
             desc += genre.text + ' '
 
         doc = {
             'title': title,
+            'title_en': title_en,
             'img': img_url,
             'url': url,
             'like': 0,
