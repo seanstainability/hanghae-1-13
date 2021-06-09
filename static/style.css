@@ -1,0 +1,67 @@
+:root {
+    --font-color: #e8344e;
+}
+
+body {
+    margin: 0;
+}
+
+.is-font {
+    color: var(--font-color) !important;
+}
+
+.card-image .fa-heart:hover {
+    cursor: pointer;
+}
+
+.card-image .fa-heart-o:hover {
+    color: var(--font-color);
+    cursor: pointer;
+}
+
+figure {
+    transition: opacity 0.2s;
+    position: relative;
+    margin: 30px auto;
+    max-width: 80%
+}
+
+figure img {
+    width: 100%
+}
+
+figure .media-content {
+    color: #fff;
+    bottom: 70px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    transition: all .3s ease;
+}
+
+figure .gallery-img {
+    opacity: 1;
+    transition: all 0.3s ease 0s;
+    overflow: hidden
+}
+
+.gallery-img {
+    background-color: black;
+}
+
+figure:hover .gallery-img {
+    background-color: #000;
+}
+
+figure:hover img {
+    transform: scale(1.1, 1.1);
+    transition: all .3s ease;
+    opacity: 0.15;
+    cursor: pointer
+}
+
+figure:hover .media-content {
+    opacity: 1;
+    transition: all .3s ease;
+}

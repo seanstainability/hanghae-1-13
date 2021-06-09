@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+
+    <!-- font-awesome -->
+    <script src="https://kit.fontawesome.com/6c64404a8e.js" crossorigin="anonymous"></script>
+
+    <title>홈 | 넷플릭스 납량특집</title>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</head>
+<body>
+<!-- START NAV -->
+<nav class="navbar is-fixed-top is-black">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="{{ url_for('static', filename='logo.png') }}">
+            <strong class="is-font pl-3">넷플릭스 납량특집</strong>
+        </a>
+    </div>
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+                <button type="button" class="button is-black" onclick="logout()">
+                    <strong class="is-white">로그아웃</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- END NAV -->
+
+<!-- Start Hero Carousel -->
+<section class="hero is-medium has-carousel is-halfheight">
+    <div id="carousel-demo" class="hero-carousel">
+        {% for movie in movies %}
+            {% if loop.index == 1 %}
+                <div class="item-1">
+                    <!-- Slide Content -->
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                        </figure>
+                    </div>
+                </div>
+            {% endif %}
+            {% if loop.index == 2 %}
+                <div class="item-2">
+                    <!-- Slide Content -->
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                        </figure>
+                    </div>
+                </div>
+            {% endif %}
+            {% if loop.index == 3 %}
+                <div class="item-3">
+                    <!-- Slide Content -->
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                        </figure>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="hero-head"></div>
+    <div class="hero-body"></div>
+    <div class="hero-foot"></div>
+</section>
+<!-- End Hero Carousel -->
+
+<section class="section">
+    <div id="app" class="row columns is-multiline">
+        {% for movie in movies %}
+            {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 1 %}
+                <div class="column is-4">
+            {% endif %}
+        {% if loop.index != 1 and loop.index != 2 and loop.index !=3 %}
+            <div class="large">
+                <div class="card-image">
+                    {% if movie.like_by_me %}
+                        <i class="fa fa-heart is-size-2" onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
+                    {% else %}
+                        <i class="fa fa-heart-o is-size-2" onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
+                    {% endif %}
+                    <figure class="image is-16by9">
+                        <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                        <div class="card-content">
+                            <a href="#" target="_blank"
+                               class="star-name title is-4">{{ movie.title }}
+                                <br/><i class="fa fa-heart is-size-4 m-1 like-num"></i>{{ movie.like }}</a>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        {% endif %}
+        {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 0 %}
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- START FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <div class="soc mb-3">
+                <a href="https://github.com/seanstainability/hanghae-1-13"><i class="fa fa-github-alt fa-lg p-3"
+                                                                              aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-youtube fa-lg p-3" aria-hidden="true"></i></a>
+            </div>
+            <p>
+                <strong>항해99 2기</strong> by <a href="#">김유진</a>, <a href="#">이한빈</a>, <a href="#">권오철</a>, <a
+                    href="https://github.com/seanstainability">허동우</a>.
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+
+<!-- bulma script -->
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+<script>
+    bulmaCarousel.attach('#carousel-demo', {
+        slidesToScroll: 1,
+        slidesToShow: 1
+    });
+</script>
+<script>
+    document.body.addEventListener('click', (e) => {
+        console.log(e.target)
+        const targetClassList = e.target.classList;
+
+        if (targetClassList.contains('fa-heart-o')) {
+            targetClassList.remove('fa-heart-o');
+            targetClassList.toggle('fa-heart');
+
+        } else if (targetClassList.contains('fa-heart')) { // 좋아요 누른 버튼인 경우
+            targetClassList.remove('fa-heart');
+            targetClassList.toggle('fa-heart-o');
+
+        } else if (e.target.tagName === 'IMG') {
+            movie_id = e.target.getAttribute('alt')
+            location.href = `/movie?movie_id=${movie_id}`
+        }
+    })
+</script>
+</body>
+</html>
