@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
 
-client = MongoClient('13.125.123.139', 27017, username="seanstainability", password="spnm24365!")
+client = MongoClient('localhost', 27017)
 db = client.horror
 
 
