@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
 
-client = MongoClient('13.125.123.139', 27017, username="seanstainability", password="spnm24365!")
+client = MongoClient('localhost', 27017)
 db = client.horror
+
 
 
 # DB에 저장할 영화들의 url 가져오기
