@@ -132,43 +132,19 @@
 
         <h3 style="color: crimson;">댓글 리스트</h3>
         <table class="$table-foot-background-color table-cell-border">
-            <!--            <thead class="thead">-->
-            <!--            <tr>-->
-            <!--                <th>닉네임</th>-->
-            <!--                <th>댓글 내용</th>-->
-            <!--                <th>등록 시간</th>-->
-            <!--            </tr>-->
-            <!--            </thead>-->
-            <!--            <tfoot class="tfoot">-->
-            <!--            <tr>-->
-            <!--                <th>닉네임</th>-->
-            <!--                <th>댓글 내용</th>-->
-            <!--                <th>등록 시간</th>-->
-            <!--            </tr>-->
-            <!--            </tfoot>-->
             <tbody class="tbody" id="reply_list">
-            <tr>
-                <th>홍길동 <p>time</p></th>
-                <td>댓글 내용 어쩌구</td>
-                <td>
-                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus"
-                                                                                             aria-hidden="true"></i>
-                    </button>
-                    {# 삭제버튼 #}
-                </td>
-            </tr>
-            <tr>
-                <th>홍길동2 <p>time</p></th>
-                <td>댓글 내용 어쩌구2</td>
-                <td>
-                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus"
-                                                                                             aria-hidden="true"></i>
-                    </button>
-                    {# 삭제버튼 #}
-                </td>
-            </tr>
+            {% for reply in replies %}
+                <tr>
+                    <th>{{reply.reply}}<p> {{reply.reply_time}}</p></th>
+                       <td>
+                           <button class="button is-danger is-outlined" onclick="delete_reply()" style="margin-right: 5px"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            {# 삭제버튼 #}
+                       </td>
+                </tr>
+            {% endfor %}
+
             </tbody>
-        </table>
+          </table>
         <button class="button is-danger is-outlined" onclick='window.location.href = "/"'>메인으로</button>
     </div>
 
