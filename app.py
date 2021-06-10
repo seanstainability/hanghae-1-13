@@ -3,7 +3,7 @@ import jwt
 from bson import ObjectId
 from pymongo import MongoClient
 import hashlib
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Server
 app = Flask(__name__)
@@ -94,7 +94,7 @@ def api_login():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60 * 60 * 24)
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
             # 지금 + 24시간까지 유효하다.
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
@@ -222,7 +222,7 @@ def delete_reply():
     #  삭제하기
     user_id_receive = request.form["user_id_give"]  # 유저id
     movie_id_receive = request.form["movie_id_give"] #영화id
-    reply_id_receive = request.form["rely_id_give"] #댓글고유id
+    reply_id_receive = request.form["reply_id_give"] #댓글고유id
     print(reply_id_receive)
     print(user_id_receive)
     print(movie_id_receive)

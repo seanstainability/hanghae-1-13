@@ -95,7 +95,7 @@
                 data: {
                     user_id_give: user_id,
                     movie_id_give: movie_id,
-                    rely_id_give: reply_id,
+                    reply_id_give: reply_id,
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -149,7 +149,7 @@
                     <th><span style="color: orangered">{{ com.reply }}</span> <p> {{ com.time }}</p></th>
                     <td>
                         {% if com.user_id == com.now_id %}
-                        <button class="button is-danger is-outlined" onclick="delete_reply()"
+                        <button class="button is-danger is-outlined" onclick="delete_reply('{{ com._id }}')"
                                 style="margin-right: 5px"><i class="fa fa-minus" aria-hidden="true"></i></button>
                         {# 삭제버튼 #}
                         {% endif %}
