@@ -35,7 +35,7 @@ def main():
                 doc.append({
                     '_id': id,
                     'title': movie['title'],
-                    'img': movie['img'],
+                    'img': str(movie['img']).split('?')[0],
                     'url': movie['url'],
                     'like': movie['like'],
                     'like_by_me': True,
@@ -45,7 +45,7 @@ def main():
                 doc.append({
                     '_id': id,
                     'title': movie['title'],
-                    'img': movie['img'],
+                    'img': str(movie['img']).split('?')[0],
                     'url': movie['url'],
                     'like': movie['like'],
                     'like_by_me': False,
