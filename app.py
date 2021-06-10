@@ -181,33 +181,44 @@ def delete_movie():
 
 #################유진 작업공간##################
 
-@app.route('/movie/<movie_id>', methods=['GET'])
-def movie(movie_id):
+@app.route('/movie/<movie_id>/<user_id>', methods=['GET'])
+def movie(movie_id, user_id):
     movies = list(db.movie.find({'_id': ObjectId(movie_id)}))
     this_movie = {'movie_id': movies[0]['_id'], 'title': movies[0]['title'], 'img': movies[0]['img'].split('?')[0],
                   'url': movies[0]['url'],
                   'like': movies[0]['like'], 'rate': movies[0]['rate'], 'time': movies[0]['time'],
                   'desc': movies[0]['desc']}
     # print(this_movie)
-    return render_template("movie.html", movie=this_movie)
+    return render_template("movie.html", movie=this_movie, user_id=user_id)
 
 
 @app.route('/api/save_reply', methods=['POST'])
 def save_reply():
     #  저장하기
-    now = datetime.now()  # 시간
+    now = datetime.datetime.now()  # 시간
     reply_time = now.strftime("%H:%M:%S")  # 댓글시간
     reply_receive = request.form["reply_give"]  # 댓글내용
     # user_id = request.form["user_id_give"]
     movie_id = request.form["movie_id_give"]
-    print(reply_time, reply_receive, movie_id)
+    user_id = request.form['user_id_give']
+    print(reply_time, reply_receive, movie_id, user_id)
     # doc = {"movie_id":movie_id, "user_id":user_id, "reply": reply_receive, "reply_time": reply_time}
-    doc = {"movie_id": movie_id, "reply": reply_receive, "reply_time": reply_time}
+    doc = {"movie_id": movie_id, "user_id": user_id, "reply": reply_receive, "reply_time": reply_time}
     db.reply.insert_one(doc)
     return jsonify({'result': 'success', 'msg': '댓글 등록 완료'})
+
+@app.route('/api/delete_reply', methods=['POST'])
+def delete_reply():
+    #  삭제하기
+    user_id_receive = request.form["user_id_give"]  # 댓글id
+    movie_id_receive = request.form["movie_id_give"] #영화id
+    print(user_id_receive)
+    print(movie_id_receive)
+    db.reply.delete_one({'user_id': ObjectId(user_id_receive), 'movie_id': ObjectId(movie_id_receive)})
+    return jsonify({'result': 'success', 'msg': '댓글 삭제 완료'})
 
 ##############################################
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5002, debug=True)

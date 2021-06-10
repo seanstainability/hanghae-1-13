@@ -218,7 +218,9 @@
 
         } else if (e.target.tagName === 'IMG') {
             movie_id = e.target.getAttribute('alt')
-            location.href = `/movie/${movie_id}`
+            let user_id = '{{ user_id }}'
+            console.log(user_id)
+            location.href = `/movie/${movie_id}/${user_id}`
         }
     })
 </script>

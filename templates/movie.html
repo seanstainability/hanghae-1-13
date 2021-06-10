@@ -6,6 +6,7 @@
     <title>{{ movie.title }}</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     {#  폰트 어썸  #}
 
@@ -53,25 +54,43 @@
 
     <script>
         let movie = '{{ movie }}'
-        $(document).ready(function () {
-
-        })
+        let user_id = '{{ user_id }}'
+        console.log(movie)
+        console.log(user_id)
 
         function save_reply() {
             let reply_text = $('#reply_text').val()
             let mv_id = '{{ movie.movie_id }}'
             $.ajax({
-            type: "POST",
-            url: `/api/save_reply`,
-            data: {
-                reply_give: reply_text,
-                movie_id_give: mv_id
-             },
-            success: function (response) {
-                alert(response["msg"])
-                window.location.href = "/movie/{{ movie.movie_id }}"
-             }
-             });
+                type: "POST",
+                url: `/api/save_reply`,
+                data: {
+                    reply_give: reply_text,
+                    movie_id_give: mv_id,
+                    user_id_give: user_id
+                },
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = "/movie/{{ movie.movie_id }}/{{ user_id }}"
+                }
+            });
+        }
+
+        function delete_reply() {
+            let user_id = '{{ user_id }}';
+            let movie_id = '{{ movie.movie_id }}';
+            $.ajax({
+                type: "POST",
+                url: `/api/delete_reply`,
+                data: {
+                    user_id_give: user_id,
+                    movie_id_give: movie_id
+                },
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = "/movie/{{ movie.movie_id }}/{{ user_id }}"
+                }
+            });
         }
 
 
@@ -132,7 +151,9 @@
                 <th>홍길동 <p>time</p></th>
                 <td>댓글 내용 어쩌구</td>
                 <td>
-                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus"
+                                                                                             aria-hidden="true"></i>
+                    </button>
                     {# 삭제버튼 #}
                 </td>
             </tr>
@@ -140,7 +161,9 @@
                 <th>홍길동2 <p>time</p></th>
                 <td>댓글 내용 어쩌구2</td>
                 <td>
-                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus"
+                                                                                             aria-hidden="true"></i>
+                    </button>
                     {# 삭제버튼 #}
                 </td>
             </tr>
