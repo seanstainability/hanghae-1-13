@@ -27,12 +27,23 @@ function unlike(movie_id, user_id) {
     });
 }
 
-function logout() {
-    $.removeCookie('my_token', { path: '/' });
-    alert('로그아웃!')
-    window.location.href = '/login'
-}
 
+function logout(user) {
+    let cookies = document.cookie.split(";");
+
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+
+    let willCookie = "";
+    willCookie += `${cookies};`;
+    willCookie += "Expires=" + date.toUTCString();
+
+    // 쿠키를 집어넣는다.
+    document.cookie = willCookie;
+
+    alert('로그아웃!');
+    window.location.href = "/login"
+}
 
 
 

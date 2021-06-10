@@ -20,7 +20,7 @@ db = client.horror
 
 @app.route('/')
 def main():
-    token_receive = request.cookies.get('my_token')
+    token_receive = request.cookies.get('mytoken')
     print(token_receive)
     try:
         # 복호화
@@ -52,8 +52,9 @@ def main():
                 })
         print(doc)
         user_id = str(user_info['_id'])
-        # print(user_id)
-        return render_template("index.html", movies=doc, user_id=user_id)
+        user = user_info['user']
+        # print(user)
+        return render_template("index.html", movies=doc, user_id=user_id, user=user)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except AttributeError:
@@ -66,6 +67,7 @@ def main():
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
+
 
 @app.route('/register')
 def register():
