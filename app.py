@@ -68,16 +68,24 @@ def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
+# 아이디 중복 확인
+@app.route('/sign_up/check_dup', methods=['POST'])
+def check_dup():
+    username_receive = request.form['username_give']
+    exists = bool(db.user.find_one({"user": username_receive}))
+    print(exists)
+    return jsonify({'result': 'success', 'exists': exists})
+
 
 @app.route('/register')
 def register():
     return render_template('register.html')
 
 # [로그인 API]
-@app.route('/login', methods=['POST'])
+@app.route('/sign_in', methods=['POST'])
 def api_login():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
+    id_receive = request.form['username_give']
+    pw_receive = request.form['password_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -97,16 +105,17 @@ def api_login():
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 # [회원가입 API]
-@app.route('/register', methods=['POST'])
+@app.route('/sign_up/save', methods=['POST'])
 def api_register():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
+    id_receive = request.form['username_give']
+    pw_receive = request.form['password_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     db.user.insert_one({'user': id_receive, 'pw': pw_hash})
 
     return jsonify({'result': 'success'})
+
 
 # ## 좋아요 API 역할을 하는 부분
 @app.route('/like', methods=['POST'])
@@ -202,4 +211,4 @@ def movie(movie_id):
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5002, debug=True)
