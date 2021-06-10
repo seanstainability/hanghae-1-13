@@ -7,6 +7,21 @@ body {
     font-family: 'Nanum Myeongjo', serif;
 }
 
+#score {
+    width: 40px;
+    height: 40px;
+    background-color: #e8344e;
+    border-radius: 50%;
+    position: absolute;
+    top: 75px;
+    z-index: 2;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    display:table-cell;
+    vertical-align:middle;
+}
+
 .section{
     background-color: black;
 }
@@ -92,6 +107,10 @@ figure:hover .media-content {
     transition: all .3s ease;
 }
 
-.footer{
-    background-color: darkgrey;
+.star-name {
+    color: white;
 }
+
+/*.footer{*/
+/*    background-color: darkgrey;*/
+/*}*/
