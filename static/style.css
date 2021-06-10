@@ -7,18 +7,43 @@ body {
     font-family: 'Nanum Myeongjo', serif;
 }
 
+.section{
+    background-color: black;
+}
+
+.fas fa-meh-rolling-eyes{
+    color: whitesmoke;
+}
+
+
 .is-font {
     color: var(--font-color) !important;
 }
 
-.card-image .fa-heart:hover {
+.card-image .fas fa-heartbeat:hover {
+      color: darkred;
     cursor: pointer;
 }
 
-.card-image .fa-heart-o:hover {
-    color: var(--font-color);
+.card-image .fas fa-heartbeat:hover {
+    color: darkred;
     cursor: pointer;
 }
+
+.card-image{
+    color: white;
+}
+
+.star-name title is-4{
+    color: white;
+}
+
+
+.fas fa-heartbeat{
+    color: darkolivegreen;
+}
+
+
 
 figure {
     transition: opacity 0.2s;
@@ -65,4 +90,8 @@ figure:hover img {
 figure:hover .media-content {
     opacity: 1;
     transition: all .3s ease;
+}
+
+.footer{
+    background-color: darkgrey;
 }
