@@ -58,24 +58,6 @@
         })
 
         function save_reply() {
-            let reply_text=$('#reply_text').val();
-            $.ajax({
-                type: "POST",
-                url: `/api/save_reply`,
-                data: {
-                    reply_give:reply_text,
-                    nickname_give:'',
-                    user_give:'user',
-                    movie_id_give:{{ movie.movie_id }}
-                },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = "/detail/{{ word }}?status=old"
-                }
-            });
-        }
-        
-        function save_reply() {
             let reply_text = $('#reply_text').val()
             let mv_id = '{{ movie.movie_id }}'
             $.ajax({
