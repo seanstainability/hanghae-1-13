@@ -211,11 +211,13 @@ def save_reply():
 @app.route('/api/delete_reply', methods=['POST'])
 def delete_reply():
     #  삭제하기
-    user_id_receive = request.form["user_id_give"]  # 댓글id
+    user_id_receive = request.form["user_id_give"]  # 유저id
     movie_id_receive = request.form["movie_id_give"] #영화id
+    reply_id_receive = request.form["rely_id_give"] #댓글고유id
+    print(reply_id_receive)
     print(user_id_receive)
     print(movie_id_receive)
-    db.reply.delete_one({'user_id': ObjectId(user_id_receive), 'movie_id': ObjectId(movie_id_receive)})
+    db.reply.delete_one({'_id': ObjectId(reply_id_receive), 'user_id': ObjectId(user_id_receive), 'movie_id': ObjectId(movie_id_receive)})
     return jsonify({'result': 'success', 'msg': '댓글 삭제 완료'})
 
 ##############################################

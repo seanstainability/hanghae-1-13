@@ -76,15 +76,17 @@
             });
         }
 
-        function delete_reply() {
+        function delete_reply(reply_id) {
             let user_id = '{{ user_id }}';
             let movie_id = '{{ movie.movie_id }}';
+            console.log('reply_id', reply_id)
             $.ajax({
                 type: "POST",
                 url: `/api/delete_reply`,
                 data: {
                     user_id_give: user_id,
-                    movie_id_give: movie_id
+                    movie_id_give: movie_id,
+                    rely_id_give: reply_id,
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -137,7 +139,7 @@
                 <tr>
                     <th>{{reply.reply}}<p> {{reply.reply_time}}</p></th>
                        <td>
-                           <button class="button is-danger is-outlined" onclick="delete_reply()" style="margin-right: 5px"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                           <button class="button is-danger is-outlined" onclick="delete_reply('{{ reply._id }}')" style="margin-right: 5px"><i class="fa fa-minus" aria-hidden="true"></i></button>
                             {# 삭제버튼 #}
                        </td>
                 </tr>
