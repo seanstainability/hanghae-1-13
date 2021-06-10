@@ -188,8 +188,9 @@ def movie(movie_id, user_id):
                   'url': movies[0]['url'],
                   'like': movies[0]['like'], 'rate': movies[0]['rate'], 'time': movies[0]['time'],
                   'desc': movies[0]['desc']}
+    replies = list(db.reply.find({'movie_id': movie_id}))
     # print(this_movie)
-    return render_template("movie.html", movie=this_movie, user_id=user_id)
+    return render_template("movie.html", movie=this_movie, user_id=user_id, replies=replies)
 
 
 @app.route('/api/save_reply', methods=['POST'])
