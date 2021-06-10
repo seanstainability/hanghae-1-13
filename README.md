@@ -7,7 +7,7 @@
 http://bittersweety.shop/
 
 ## 데모영상
-
+https://www.youtube.com/watch?v=HTGQMCT-dYs
 
 ## 소개
 - 호러 장르에 관심이 있으신 분들

@@ -217,7 +217,7 @@ def delete_reply():
     print(reply_id_receive)
     print(user_id_receive)
     print(movie_id_receive)
-    db.reply.delete_one({'_id': ObjectId(reply_id_receive), 'user_id': ObjectId(user_id_receive), 'movie_id': ObjectId(movie_id_receive)})
+    db.reply.delete_one({'_id': ObjectId(reply_id_receive), 'user_id': ObjectId(user_id_receive)})
     return jsonify({'result': 'success', 'msg': '댓글 삭제 완료'})
 
 ##############################################
