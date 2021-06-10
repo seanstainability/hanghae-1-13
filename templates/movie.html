@@ -74,39 +74,23 @@
                 }
             });
         }
-
-        {##}
-        {#function delete_reply() {#}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        url: `/api/delete_reply`,#}
-        {#        data: {#}
-        {#            word_give: '{{ word }}',#}
-        {#        },#}
-        {#        success: function (response) {#}
-        {#            alert(response["msg"])#}
-        {#            window.location.href = "/"#}
-        {#        }#}
-        {#    });#}
-
-        {##}
-        {#function post_reply() {#}
-        {#    $("#reply_list").empty()#}
-        {#    $.ajax({#}
-        {#        type: "GET",#}
-        {#        url: `/api/post_replies?word_give=${word}`,#}
-        {#        data: {},#}
-        {#        success: function (response) {#}
-        {#            let examples = response["examples"];#}
-        {#            for (let i = 0; i < examples.length; i++) {#}
-        {#                let example = examples[i]["example"];#}
-        {#                console.log(example)#}
-        {#                let html_temp = `<li id="ex-${i}">${example}&nbsp;&nbsp;&nbsp;<a#}
-        {#                    href="javascript:delete_ex(${i})">delete</a></li>`#}
-        {#                $("#example-list").append(html_temp)#}
-        {#            }#}
-        {#        }#}
-        {#    });#}
+        
+        function save_reply() {
+            let reply_text = $('#reply_text').val()
+            let mv_id = '{{ movie.movie_id }}'
+            $.ajax({
+            type: "POST",
+            url: `/api/save_reply`,
+            data: {
+                reply_give: reply_text,
+                movie_id_give: mv_id
+             },
+            success: function (response) {
+                alert(response["msg"])
+                window.location.href = "/movie/{{ movie.movie_id }}"
+             }
+             });
+        }
 
 
     </script>
