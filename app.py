@@ -168,7 +168,7 @@ def delete_movie():
     return jsonify({'msg': '삭제 완료!', 'result': "success"})
 
 
-@app.route('/detail')
+@app.route('/movie')
 def detail():
     movie_id = request.args.get("movie_id")
     return render_template("movie.html", movie_id=movie_id)
