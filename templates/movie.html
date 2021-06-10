@@ -27,7 +27,7 @@
             height: 550px;
             margin: auto;
             padding-top: 450px;
-            {#text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;#}
+        {#text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;#}
         }
 
         .detail:hover {
@@ -35,7 +35,7 @@
         }
 
         .desc {
-            background-color: rgba( 255, 255, 255, 0.4 );
+            background-color: rgba(255, 255, 255, 0.4);
             padding: 8px;
         }
 
@@ -56,6 +56,59 @@
         $(document).ready(function () {
 
         })
+
+        function save_reply() {
+            let reply_text=$('#reply_text').val();
+            $.ajax({
+                type: "POST",
+                url: `/api/save_reply`,
+                data: {
+                    reply_give:reply_text,
+                    nickname_give:'',
+                    user_give:'user',
+                    movie_id_give:{{ movie.movie_id }}
+                },
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = "/detail/{{ word }}?status=old"
+                }
+            });
+        }
+
+        {##}
+        {#function delete_reply() {#}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {#        url: `/api/delete_reply`,#}
+        {#        data: {#}
+        {#            word_give: '{{ word }}',#}
+        {#        },#}
+        {#        success: function (response) {#}
+        {#            alert(response["msg"])#}
+        {#            window.location.href = "/"#}
+        {#        }#}
+        {#    });#}
+
+        {##}
+        {#function post_reply() {#}
+        {#    $("#reply_list").empty()#}
+        {#    $.ajax({#}
+        {#        type: "GET",#}
+        {#        url: `/api/post_replies?word_give=${word}`,#}
+        {#        data: {},#}
+        {#        success: function (response) {#}
+        {#            let examples = response["examples"];#}
+        {#            for (let i = 0; i < examples.length; i++) {#}
+        {#                let example = examples[i]["example"];#}
+        {#                console.log(example)#}
+        {#                let html_temp = `<li id="ex-${i}">${example}&nbsp;&nbsp;&nbsp;<a#}
+        {#                    href="javascript:delete_ex(${i})">delete</a></li>`#}
+        {#                $("#example-list").append(html_temp)#}
+        {#            }#}
+        {#        }#}
+        {#    });#}
+
+
     </script>
 
 </head>
@@ -67,10 +120,10 @@
             <div class="detail">
                 <div class="desc">
                     <p class="title" style="color: black">
-                    {{ movie.title }}
-                </p>
-                <p class="subtitle" style="color: black">
-                    {{ movie.desc }}
+                        {{ movie.title }}
+                    </p>
+                    <p class="subtitle" style="color: black">
+                        {{ movie.desc }}
                 </div>
 
                 </p>
@@ -80,14 +133,16 @@
     <div class="rate content">
         <div class="score"><h2 style="color: crimson; margin-top: 25px;">평점 : {{ movie.rate }}</h2></div>
         <div class="like" style="margin-top: 20px; margin-left: 300px;">
-            <button class="button is-danger is-outlined is-rounded"><i class="fa fa-heart" aria-hidden="true"></i> {{ movie.like }}
+            <button class="button is-danger is-outlined is-rounded"><i class="fa fa-heart"
+                                                                       aria-hidden="true"></i> {{ movie.like }}
                 {# 좋아요버튼 #}</button>
         </div>
     </div>
 
     <div class="reply content">
-        <input class="input is-danger" type="text" placeholder="댓글 내용" style="width: 430px;">
-        <button class="button is-danger is-outlined"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <input id="reply_text" class="input is-danger" type="text" placeholder="댓글 내용" style="width: 430px;">
+        <button class="button is-danger is-outlined" onclick="save_reply()"><i class="fa fa-pencil"
+                                                                               aria-hidden="true"></i></button>
         {# 입력버튼 #}
 
         <h3 style="color: crimson;">댓글 리스트</h3>
@@ -106,12 +161,12 @@
             <!--                <th>등록 시간</th>-->
             <!--            </tr>-->
             <!--            </tfoot>-->
-            <tbody class="tbody">
+            <tbody class="tbody" id="reply_list">
             <tr>
                 <th>홍길동 <p>time</p></th>
                 <td>댓글 내용 어쩌구</td>
                 <td>
-                    <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus" aria-hidden="true"></i></button>
                     {# 삭제버튼 #}
                 </td>
             </tr>
@@ -119,7 +174,7 @@
                 <th>홍길동2 <p>time</p></th>
                 <td>댓글 내용 어쩌구2</td>
                 <td>
-                    <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <button class="button is-danger is-outlined" onclick="delete_reply()"><i class="fa fa-minus" aria-hidden="true"></i></button>
                     {# 삭제버튼 #}
                 </td>
             </tr>
