@@ -19,6 +19,10 @@
     <!-- font-awesome -->
     <script src="https://kit.fontawesome.com/6c64404a8e.js" crossorigin="anonymous"></script>
 
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
+
     <title>홈 | 넷플릭스 납량특집</title>
 
     <!-- JS -->
@@ -161,7 +165,7 @@
 
         } else if (e.target.tagName === 'IMG') {
             movie_id = e.target.getAttribute('alt')
-            location.href = `/movie?movie_id=${movie_id}`
+            location.href = `/movie/<${movie_id}>`
         }
     })
 </script>
