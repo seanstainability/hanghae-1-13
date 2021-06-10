@@ -26,7 +26,7 @@ def main():
         # 복호화
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"user": payload['id']}, {"pw": 0})
-        movies = list(db.movie.find({}).sort("like", -1).limit(30))
+        movies = list(db.movie.find({}).sort("like", -1).limit(50))
         doc = []
         for movie in movies:
             isLiked = db.like.find_one({'user_id': ObjectId(user_info['_id']), 'movie_id': movie['_id']})
@@ -40,6 +40,7 @@ def main():
                     'like': movie['like'],
                     'like_by_me': True,
                 })
+                # print(True)
             else:
                 id = (str(ObjectId(movie['_id'])))
                 doc.append({
@@ -50,6 +51,7 @@ def main():
                     'like': movie['like'],
                     'like_by_me': False,
                 })
+                # print(False)
         print(doc)
         user_id = str(user_info['_id'])
         user = user_info['user']
