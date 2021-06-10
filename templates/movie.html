@@ -146,7 +146,7 @@
             <tbody class="tbody" id="reply_list">
             {% for com in compare %}
                 <tr>
-                    <th>{{ com.reply }} <p> {{ com.time }}</p></th>
+                    <th><span style="color: orangered">{{ com.reply }}</span> <p> {{ com.time }}</p></th>
                     <td>
                         {% if com.user_id == com.now_id %}
                         <button class="button is-danger is-outlined" onclick="delete_reply()"
