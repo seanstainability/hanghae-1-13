@@ -3,7 +3,7 @@ import jwt
 from bson import ObjectId
 from pymongo import MongoClient
 import hashlib
-import datetime
+from datetime import datetime
 
 # Server
 app = Flask(__name__)
@@ -189,22 +189,31 @@ def movie(movie_id, user_id):
                   'like': movies[0]['like'], 'rate': movies[0]['rate'], 'time': movies[0]['time'],
                   'desc': movies[0]['desc']}
     replies = list(db.reply.find({'movie_id': movie_id}))
-    # print(this_movie)
-    return render_template("movie.html", movie=this_movie, user_id=user_id, replies=replies)
+    
+    compare = []
+    for reply in replies:
+        _id = reply['_id']
+        reply_id = reply['user_id']
+        now_id = user_id
+        movie_id = reply['movie_id']
+        rep = reply['reply']
+        rep_time = reply['reply_time']
+        compare.append({'_id': _id, 'now_id': now_id, 'user_id': reply_id, 'movie_id': movie_id, 'reply': rep, 'time': rep_time})
+    
+    return render_template("movie.html", movie=this_movie, user_id=user_id, replies=replies, compare=compare)
 
 
 @app.route('/api/save_reply', methods=['POST'])
 def save_reply():
     #  저장하기
-    now = datetime.datetime.now()  # 시간
-    reply_time = now.strftime("%H:%M:%S")  # 댓글시간
+    now = datetime.now()  # 시간
+    reply_time = now.strftime("%y.%m.%d-%H:%M:%S")  # 댓글시간
     reply_receive = request.form["reply_give"]  # 댓글내용
-    # user_id = request.form["user_id_give"]
+    user_id = request.form["user_id_give"]
     movie_id = request.form["movie_id_give"]
-    user_id = request.form['user_id_give']
-    print(reply_time, reply_receive, movie_id, user_id)
+    print(reply_time, reply_receive, movie_id)
     # doc = {"movie_id":movie_id, "user_id":user_id, "reply": reply_receive, "reply_time": reply_time}
-    doc = {"movie_id": movie_id, "user_id": user_id, "reply": reply_receive, "reply_time": reply_time}
+    doc = {"movie_id": movie_id, "reply": reply_receive, "reply_time": reply_time, "user_id": user_id}
     db.reply.insert_one(doc)
     return jsonify({'result': 'success', 'msg': '댓글 등록 완료'})
 
