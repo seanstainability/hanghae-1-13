@@ -3,7 +3,7 @@
 <head>
 
     <!-- Webpage Title -->
-    <title>넷플릭스 납량특집</title>
+    <title>공포영화 납량특집</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -59,19 +59,6 @@
         .help {
             color: gray;
         }
-
-        {##div-sign-in-or-up > nav > button:hover {#}
-        {#    background-color: #e8344e;#}
-        {#    color: black;#}
-        {#}#}
-
-        {##}
-        {##container {#}
-        {#    display: flex;#}
-        {#    flex-direction: column;#}
-        {#    justify-content: flex-end;#}
-        {
-        #}#}
     </style>
 
 </head>
@@ -79,8 +66,8 @@
 {#<div id="container">#}
 <section class="hero">
     <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-        <h1 class="title is-sparta">넷플릭스 납량특집</h1>
-        <h3 class="subtitle is-sparta">😱 넷플릭스의 여름 호러 영화 순위 투표 사이트</h3>
+        <h1 class="title is-sparta">공포영화 납량특집</h1>
+        <h3 class="subtitle is-sparta">😱 네이버 영화 여름 호러 영화 순위 투표 사이트</h3>
     </div>
 </section>
 <section class="section">
@@ -318,6 +305,7 @@
             },
             success: function (response) {
                 if (response['result'] == 'success') {
+                    alert("환영합니다!")
                     $.cookie('mytoken', response['token'], {path: '/'});
                     window.location.replace("/")
                 } else {
