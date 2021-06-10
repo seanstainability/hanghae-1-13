@@ -30,7 +30,7 @@ function unlike(movie_id, user_id) {
 
 function logout(user) {
     let cookies = document.cookie.split(";");
-
+    console.log(cookies);
     let date = new Date();
     date.setDate(date.getDate() - 1);
 

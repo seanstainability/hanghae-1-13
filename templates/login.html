@@ -14,7 +14,29 @@
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background-image: url("https://i.pinimg.com/474x/15/75/4a/15754a0694a5d7f56856c38ebeba441a.jpg");
+            background-size: cover;
+        }
 
+        .section {
+            padding: 1rem 1.5rem;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .title {
+            color: red;
+            font-weight: 800;
+            font-size: 5rem;
+        }
+
+        .label {
+            color:blue;
+        }
+    </style>
     <script>
         {% if msg %}
             alert("{{ msg }}")
@@ -52,6 +74,7 @@
             <div class="field-label is-normal">
                 <label class="label" for="userid">ID</label>
             </div>
+
             <div class="field-body">
                 <div class="field">
                     <div class="control">
