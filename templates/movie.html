@@ -1,12 +1,13 @@
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ movie.title }}</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    {#  폰트 어썸  #}
 
     <style>
         .wrap {
@@ -15,7 +16,7 @@
         }
 
         .hero-body {
-            background-image: url("https://movie-phinf.pstatic.net/20210512_139/1620799657168vGIqq_JPEG/movie_image.jpg");
+            background-image: url({{ movie.img }});
             background-size: 100%;
             height: 600px;
         }
@@ -26,10 +27,16 @@
             height: 550px;
             margin: auto;
             padding-top: 450px;
+            {#text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;#}
         }
 
         .detail:hover {
             opacity: 100%;
+        }
+
+        .desc {
+            background-color: rgba( 255, 255, 255, 0.4 );
+            padding: 8px;
         }
 
         .content {
@@ -44,9 +51,12 @@
 
     </style>
 
-    <script></script>
-    <!-- Bulma CSS 링크 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script>
+        let movie = '{{ movie }}'
+        $(document).ready(function () {
+
+        })
+    </script>
 
 </head>
 <body>
@@ -55,59 +65,70 @@
     <section class="hero is-danger">
         <div class="hero-body">
             <div class="detail">
-                <p class="title" style="color: black">
-                    movie_id, {{ movie_id }}
+                <div class="desc">
+                    <p class="title" style="color: black">
+                    {{ movie.title }}
                 </p>
                 <p class="subtitle" style="color: black">
-                    영화 장르
+                    {{ movie.desc }}
+                </div>
 
                 </p>
             </div>
         </div>
     </section>
     <div class="rate content">
-        <div><h2 style="color: crimson; margin-top: 15px;">평점 :</h2></div>
-        <div>
-            <button class="button is-danger is-outlined">좋아요 <i class="fa fa-heart" aria-hidden="true"></i>
-            </button>
+        <div class="score"><h2 style="color: crimson; margin-top: 25px;">평점 : {{ movie.rate }}</h2></div>
+        <div class="like" style="margin-top: 20px; margin-left: 300px;">
+            <button class="button is-danger is-outlined is-rounded"><i class="fa fa-heart" aria-hidden="true"></i> {{ movie.like }}
+                {# 좋아요버튼 #}</button>
         </div>
     </div>
 
     <div class="reply content">
         <input class="input is-danger" type="text" placeholder="댓글 내용" style="width: 430px;">
-        <button class="button is-danger is-outlined">입력</button>
+        <button class="button is-danger is-outlined"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        {# 입력버튼 #}
 
         <h3 style="color: crimson;">댓글 리스트</h3>
         <table class="$table-foot-background-color table-cell-border">
-            <thead class="thead">
-            <tr>
-                <th>닉네임</th>
-                <th>댓글 내용</th>
-                <th>등록 시간</th>
-            </tr>
-            </thead>
-            <tfoot class="tfoot">
-            <tr>
-                <th>닉네임</th>
-                <th>댓글 내용</th>
-                <th>등록 시간</th>
-            </tr>
-            </tfoot>
+            <!--            <thead class="thead">-->
+            <!--            <tr>-->
+            <!--                <th>닉네임</th>-->
+            <!--                <th>댓글 내용</th>-->
+            <!--                <th>등록 시간</th>-->
+            <!--            </tr>-->
+            <!--            </thead>-->
+            <!--            <tfoot class="tfoot">-->
+            <!--            <tr>-->
+            <!--                <th>닉네임</th>-->
+            <!--                <th>댓글 내용</th>-->
+            <!--                <th>등록 시간</th>-->
+            <!--            </tr>-->
+            <!--            </tfoot>-->
             <tbody class="tbody">
             <tr>
-                <th>1</th>
-                <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester
-                    City</a> <strong>(C)</strong>
-                </td>
+                <th>홍길동 <p>time</p></th>
+                <td>댓글 내용 어쩌구</td>
                 <td>
-                    <button class="button is-danger is-outlined">삭제</button>
+                    <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    {# 삭제버튼 #}
+                </td>
+            </tr>
+            <tr>
+                <th>홍길동2 <p>time</p></th>
+                <td>댓글 내용 어쩌구2</td>
+                <td>
+                    <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    {# 삭제버튼 #}
                 </td>
             </tr>
             </tbody>
         </table>
+        <button class="button is-danger is-outlined" onclick='window.location.href = "/"'>메인으로</button>
     </div>
-    <button onclick='window.location.href = "/"'>메인으로</button>
 
 </div>
+
 </body>
 </html>

@@ -20,7 +20,7 @@ db = client.horror
 
 @app.route('/')
 def main():
-    token_receive = request.cookies.get('my_token')
+    token_receive = request.cookies.get('mytoken')
     print(token_receive)
     try:
         # 복호화
@@ -35,7 +35,7 @@ def main():
                 doc.append({
                     '_id': id,
                     'title': movie['title'],
-                    'img': movie['img'],
+                    'img': str(movie['img']).split('?')[0],
                     'url': movie['url'],
                     'like': movie['like'],
                     'like_by_me': True,
@@ -45,15 +45,16 @@ def main():
                 doc.append({
                     '_id': id,
                     'title': movie['title'],
-                    'img': movie['img'],
+                    'img': str(movie['img']).split('?')[0],
                     'url': movie['url'],
                     'like': movie['like'],
                     'like_by_me': False,
                 })
         print(doc)
         user_id = str(user_info['_id'])
-        # print(user_id)
-        return render_template("index.html", movies=doc, user_id=user_id)
+        user = user_info['user']
+        # print(user)
+        return render_template("index.html", movies=doc, user_id=user_id, user=user)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except AttributeError:
@@ -66,6 +67,7 @@ def main():
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
+
 
 @app.route('/register')
 def register():
@@ -168,10 +170,15 @@ def delete_movie():
     return jsonify({'msg': '삭제 완료!', 'result': "success"})
 
 
-@app.route('/movie')
-def detail():
-    movie_id = request.args.get("movie_id")
-    return render_template("movie.html", movie_id=movie_id)
+#################유진 작업공간##################
+
+@app.route('/detail/<movie_id>', methods=['GET'])
+def movie(movie_id):
+    movies = list(db.movie.find({'_id': ObjectId(movie_id)}))
+    movie = {'title': movies[0]['title'], 'img': movies[0]['img'].split('?')[0], 'url': movies[0]['url'], 'like': movies[0]['like'],'rate': movies[0]['rate'], 'time': movies[0]['time'], 'desc': movies[0]['desc']}
+    return render_template("movie.html", movie=movie)
+
+##############################################
 
 
 if __name__ == '__main__':
