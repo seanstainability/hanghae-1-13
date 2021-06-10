@@ -174,8 +174,7 @@ def delete_movie():
 
 @app.route('/detail/<movie_id>', methods=['GET'])
 def movie(movie_id):
-    # movie_id = request.args.get("movie_id")
-    movies = list(db.movie.find({'title': movie_id}))
+    movies = list(db.movie.find({'_id': ObjectId(movie_id)}))
     movie = {'title': movies[0]['title'], 'img': movies[0]['img'].split('?')[0], 'url': movies[0]['url'], 'like': movies[0]['like'],'rate': movies[0]['rate'], 'time': movies[0]['time'], 'desc': movies[0]['desc']}
     return render_template("movie.html", movie=movie)
 
