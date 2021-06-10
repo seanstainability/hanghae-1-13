@@ -11,7 +11,7 @@
 
     <!-- bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">-->
 
     <!-- CSS -->
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
@@ -23,21 +23,20 @@
 
     <!-- JS -->
     <script src="{{ url_for('static', filename='main.js') }}"></script>
-
 </head>
 <body>
 <!-- START NAV -->
-<nav class="navbar is-fixed-top is-black">
+<nav class="navbar is-fixed-top has-background-grey-darker">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
-            <img src="{{ url_for('static', filename='logo.png') }}">
+       <i class="fab fa-snapchat-ghost fa-2x"></i>
             <strong class="is-font pl-3">넷플릭스 납량특집</strong>
         </a>
     </div>
     <div class="navbar-end">
         <div class="navbar-item">
             <div class="buttons">
-                <button type="button" class="button is-black" onclick="logout('{{ user }}')">
+                <button type="button" class="button is-black" onclick="logout()">
                     <strong class="is-white">로그아웃</strong>
                 </button>
             </div>
@@ -47,74 +46,116 @@
 <!-- END NAV -->
 
 <!-- Start Hero Carousel -->
-<section class="hero is-medium has-carousel is-halfheight">
-    <div id="carousel-demo" class="hero-carousel">
+
+<section class="section">
+    <div class="row columns is-multiline">
         {% for movie in movies %}
-            {% if loop.index == 1 %}
-                <div class="item-1">
-                    <!-- Slide Content -->
-                    <div class="card-image">
-                        <figure class="image">
-                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
-                        </figure>
-                    </div>
-                </div>
-            {% endif %}
-            {% if loop.index == 2 %}
-                <div class="item-2">
-                    <!-- Slide Content -->
-                    <div class="card-image">
-                        <figure class="image">
-                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
-                        </figure>
-                    </div>
-                </div>
-            {% endif %}
-            {% if loop.index == 3 %}
-                <div class="item-3">
-                    <!-- Slide Content -->
-                    <div class="card-image">
-                        <figure class="image">
-                            <img src="{{ movie.img }}" alt="{{ movie._id }}">
-                        </figure>
-                    </div>
-                </div>
-            {% endif %}
+        {% if loop.index == 1 %}
+        <div class="column is-4 ">
+            <div class="card-image">
+                <figure class="image is-4by5">
+                    <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                     <a href="#" target="_self"
+                               class="star-name title is-4">{{ movie.title }}
+                                <br><br/>
+                    <button class="button is-danger is-outlined is-rounded">
+                        <div class="card-image">
+                            {% if movie.like_by_me %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% else %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% endif %}</i> {{ movie.like }}
+                    </button>
+                     </a>
+                </figure>
+            </div>
+        </div>
+        {% endif %}
+        {% if loop.index == 2 %}
+        <div class="column is-4 ">
+            <div class="card-image">
+                <figure class="image is-4by5">
+                    <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                      <div class="card-content">
+                            <a href="#" target="_self"
+                               class="star-name title is-4">{{ movie.title }}
+                                 <br><br/>
+                    <button class="button is-danger is-outlined is-rounded">
+                        <div class="card-image">
+                            {% if movie.like_by_me %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% else %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% endif %}</i> {{ movie.like }}
+                    </button>
+                            </a>
+                </figure>
+            </div>
+        </div>
+        {% endif %}
+        {% if loop.index == 3 %}
+        <div class="column is-4">
+            <div class="card-image">
+                <figure class="image is-4by5">
+                    <img src="{{ movie.img }}" alt="{{ movie._id }}">
+                              <div class="card-content">
+                            <a href="#" target="_self"
+                               class="star-name title is-4">{{ movie.title }}
+                                 <br><br/>
+                    <button class="button is-danger is-outlined is-rounded">
+                        <div class="card-image">
+                            {% if movie.like_by_me %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% else %}
+                            <i class="fas fa-heartbeat is-size-2" onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
+                            {% endif %}</i> {{ movie.like }}
+                    </button>
+                            </a>
+                </figure>
+            </div>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
-    <div class="hero-head"></div>
-    <div class="hero-body"></div>
-    <div class="hero-foot"></div>
 </section>
 <!-- End Hero Carousel -->
 
 <section class="section">
-    <div id="app" class="row columns is-multiline">
+    <div id="app">
         {% for movie in movies %}
-            {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 1 %}
-                <div class="column is-4">
+        {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 1 %}
+        <div class="columns">
             {% endif %}
-        {% if loop.index != 1 and loop.index != 2 and loop.index !=3 %}
-            <div class="large">
+            {% if loop.index != 1 and loop.index != 2 and loop.index !=3 %}
+            <div class="column is-one-third">
                 <div class="card-image">
                     {% if movie.like_by_me %}
-                        <i class="fa fa-heart is-size-2" onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
                     {% else %}
-                        <i class="fa fa-heart-o is-size-2" onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
                     {% endif %}
-                    <figure class="image is-16by9">
+                    <figure class="image is-4by5">
                         <img src="{{ movie.img }}" alt="{{ movie._id }}">
                         <div class="card-content">
-                            <a href="#" target="_blank"
+                            <a href="#" target="_self"
                                class="star-name title is-4">{{ movie.title }}
-                                <br/><i class="fa fa-heart is-size-4 m-1 like-num"></i>{{ movie.like }}</a>
+                                 <br><br/>
+                                <button class="button is-danger is-outlined is-rounded">
+                                    <div class="card-image">
+                                        {% if movie.like_by_me %}
+                                        <i class="fas fa-heartbeat is-size-2"
+                                           onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
+                                        {% else %}
+                                        <i class="fas fa-heartbeat is-size-2"
+                                           onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
+                                        {% endif %}</i> {{ movie.like }}
+                                </button>
+                            </a>
                         </div>
                     </figure>
                 </div>
             </div>
-        {% endif %}
-        {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 0 %}
-            </div>
+            {% endif %}
+            {% if loop.index != 1 and loop.index != 2 and loop.index !=3 and loop.index % 3 == 0 %}
+        </div>
         {% endif %}
         {% endfor %}
     </div>
@@ -139,13 +180,13 @@
 <!-- END FOOTER -->
 
 <!-- bulma script -->
-<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-<script>
-    bulmaCarousel.attach('#carousel-demo', {
-        slidesToScroll: 1,
-        slidesToShow: 1
-    });
-</script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>-->
+<!--<script>-->
+<!--    bulmaCarousel.attach('#carousel-demo', {-->
+<!--        slidesToScroll: 1,-->
+<!--        slidesToShow: 1-->
+<!--    });-->
+<!--</script>-->
 <script>
     document.body.addEventListener('click', (e) => {
         console.log(e.target)
