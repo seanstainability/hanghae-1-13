@@ -16,8 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <style>
         body {
-            min-height: 100vh;
-            background-image: url("https://i.pinimg.com/474x/15/75/4a/15754a0694a5d7f56856c38ebeba441a.jpg");
+            height: 100vh;
+            background-image: url("../static/scared_face.jpg");
             background-size: cover;
         }
 
@@ -28,13 +28,13 @@
         }
 
         .title {
-            color: red;
+            color: #e8344e;
             font-weight: 800;
             font-size: 5rem;
         }
 
         .label {
-            color:blue;
+            color: white;
         }
     </style>
     <script>
@@ -68,7 +68,7 @@
 </head>
 <body>
 <div class="section has-text-centered">
-    <h1 class="title">로그인 페이지</h1>
+    <h1 class="title">넷플릭스 납량특집</h1>
     <div class="container" style="width:60%">
         <div class="field is-horizontal">
             <div class="field-label is-normal">
@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <button class="button is-primary" onclick="login()">로그인</button>
+        <button class="button" onclick="login()" style="background-color: #e8344e; color: white; border-color: #e8344e">로그인</button>
         <a href="/register">회원가입</a>
     </div>
 </div>
