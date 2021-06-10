@@ -170,10 +170,16 @@ def delete_movie():
     return jsonify({'msg': '삭제 완료!', 'result': "success"})
 
 
-@app.route('/movie')
-def detail():
-    movie_id = request.args.get("movie_id")
-    return render_template("movie.html", movie_id=movie_id)
+#################유진 작업공간##################
+
+@app.route('/detail/<movie_id>', methods=['GET'])
+def movie(movie_id):
+    # movie_id = request.args.get("movie_id")
+    movies = list(db.movie.find({'title': movie_id}))
+    movie = {'title': movies[0]['title'], 'img': movies[0]['img'].split('?')[0], 'url': movies[0]['url'], 'like': movies[0]['like'],'rate': movies[0]['rate'], 'time': movies[0]['time'], 'desc': movies[0]['desc']}
+    return render_template("movie.html", movie=movie)
+
+##############################################
 
 
 if __name__ == '__main__':
