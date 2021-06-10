@@ -14,6 +14,7 @@ SECRET_KEY = 'HANGHAE213'
 
 # DB
 client = MongoClient('localhost', 27017)
+# client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.horror
 
 
@@ -25,22 +26,33 @@ def main():
         # 복호화
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"user": payload['id']}, {"pw": 0})
-
         movies = list(db.movie.find({}).sort("like", -1).limit(30))
         doc = []
         for movie in movies:
-            id = (str(ObjectId(movie['_id'])))
-            doc.append({
-                '_id': id,
-                'title': movie['title'],
-                'img': movie['img'],
-                'url': movie['url'],
-                'like': movie['like'],
-                'like_by_me': False,
-            })
+            isLiked = db.like.find_one({'user_id': ObjectId(user_info['_id']), 'movie_id': movie['_id']})
+            if isLiked:
+                id = (str(ObjectId(movie['_id'])))
+                doc.append({
+                    '_id': id,
+                    'title': movie['title'],
+                    'img': movie['img'],
+                    'url': movie['url'],
+                    'like': movie['like'],
+                    'like_by_me': True,
+                })
+            else:
+                id = (str(ObjectId(movie['_id'])))
+                doc.append({
+                    '_id': id,
+                    'title': movie['title'],
+                    'img': movie['img'],
+                    'url': movie['url'],
+                    'like': movie['like'],
+                    'like_by_me': False,
+                })
         print(doc)
         user_id = str(user_info['_id'])
-        print(user_id)
+        # print(user_id)
         return render_template("index.html", movies=doc, user_id=user_id)
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
@@ -114,6 +126,29 @@ def like_movie():
     db.like.insert_one(doc)
     return jsonify({'msg': '좋아요 완료!', 'result': "success"})
 
+# ## 좋아요 API 역할을 하는 부분
+# @app.route('/liked', methods=['POST'])
+# def liked_movie():
+#     print('liked here')
+#     movie_id = request.form['movie_id']
+#     user_id = request.form['user_id']
+#
+#     try:
+#         target_movie = db.like.find_one({'movie_id': ObjectId(movie_id), 'user_id': ObjectId(user_id)})
+#         if target_movie is not None:
+#             isLiked = True
+#             # msg = '좋아요 업데이트 완료'
+#             # result = 'success'
+#         else:
+#             isLiked = False
+#             # msg = '좋아요 업데이트 중 문제가 발생했습니다.'
+#             # result = 'fail'
+#     except:
+#         pass
+#         # msg = '좋아요 업데이트 중 문제가 발생했습니다.'
+#         # result = 'fail'
+#         print('isLiked', isLiked)
+#     return render_template('index.html', isLiked=isLiked)
 
 ## 좋아요 취소 API 역할을 하는 부분
 @app.route('/unlike', methods=['POST'])
@@ -133,11 +168,11 @@ def delete_movie():
     return jsonify({'msg': '삭제 완료!', 'result': "success"})
 
 
-@app.route('/detail')
+@app.route('/movie')
 def detail():
     movie_id = request.args.get("movie_id")
     return render_template("movie.html", movie_id=movie_id)
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5008, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)

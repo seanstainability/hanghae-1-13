@@ -7,7 +7,7 @@ function like(movie_id, user_id) {
         success: function (response) {
             if (response.result == 'success') {
                 alert(response['msg']);
-                window.location.reload()
+                window.location.reload();
             }
         }
     });
@@ -28,7 +28,7 @@ function unlike(movie_id, user_id) {
 }
 
 function logout() {
-    $.removeCookie('my_token');
+    $.removeCookie('my_token', { path: '/' });
     alert('로그아웃!')
     window.location.href = '/login'
 }
