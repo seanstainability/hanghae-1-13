@@ -6,6 +6,7 @@
     <title>{{ movie.title }}</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
     {#  폰트 어썸  #}
 
     <style>
@@ -26,10 +27,16 @@
             height: 550px;
             margin: auto;
             padding-top: 450px;
+            {#text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;#}
         }
 
         .detail:hover {
             opacity: 100%;
+        }
+
+        .desc {
+            background-color: rgba( 255, 255, 255, 0.4 );
+            padding: 8px;
         }
 
         .content {
@@ -58,19 +65,21 @@
     <section class="hero is-danger">
         <div class="hero-body">
             <div class="detail">
-                <p class="title" style="color: black">
+                <div class="desc">
+                    <p class="title" style="color: black">
                     {{ movie.title }}
                 </p>
                 <p class="subtitle" style="color: black">
                     {{ movie.desc }}
+                </div>
 
                 </p>
             </div>
         </div>
     </section>
     <div class="rate content">
-        <div class="score"><h2 style="color: crimson; margin-top: 15px;">평점 : {{ movie.rate }}</h2></div>
-        <div class="like" style="margin-top: 10px;">
+        <div class="score"><h2 style="color: crimson; margin-top: 25px;">평점 : {{ movie.rate }}</h2></div>
+        <div class="like" style="margin-top: 20px; margin-left: 300px;">
             <button class="button is-danger is-outlined is-rounded"><i class="fa fa-heart" aria-hidden="true"></i> {{ movie.like }}
                 {# 좋아요버튼 #}</button>
         </div>
@@ -99,7 +108,7 @@
             <!--            </tfoot>-->
             <tbody class="tbody">
             <tr>
-                <th>김유진 <p>time</p></th>
+                <th>홍길동 <p>time</p></th>
                 <td>댓글 내용 어쩌구</td>
                 <td>
                     <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -107,7 +116,7 @@
                 </td>
             </tr>
             <tr>
-                <th>김동훈 <p>time</p></th>
+                <th>홍길동2 <p>time</p></th>
                 <td>댓글 내용 어쩌구2</td>
                 <td>
                     <button class="button is-danger is-outlined"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -116,8 +125,8 @@
             </tr>
             </tbody>
         </table>
+        <button class="button is-danger is-outlined" onclick='window.location.href = "/"'>메인으로</button>
     </div>
-    <button class="button is-danger is-outlined" onclick='window.location.href = "/"'>메인으로</button>
 
 </div>
 
