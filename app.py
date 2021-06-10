@@ -192,20 +192,19 @@ def movie(movie_id):
     return render_template("movie.html", movie=this_movie)
 
 
-# @app.route('/api/save_reply', methods=['POST'])
-# def save_reply():
-#     #  저장하기
-#     reply_receive = request.form["reply_give"]  # 댓글내용
-#     nickname_receive = request.form["nickname_give"]  # 닉네임
-#     now = datetime.now()  # 시간
-#     reply_time = now.strftime("%H:%M:%S")  # 댓글시간
-#     user_id = request.form["user_id_give"]
-#     movie_id = request.form["movie_id_give"]
-#     # 유저 아이디
-#     # 영화 아이디
-#     doc = {"movie_id":, "user_id":, "nick": nickname_receive, "reply": reply_receive, "reply_time": reply_time}
-#     db.reply.insert_one(doc)
-#     return jsonify({'result': 'success', 'msg': '댓글 등록 완료'})
+@app.route('/api/save_reply', methods=['POST'])
+def save_reply():
+    #  저장하기
+    now = datetime.now()  # 시간
+    reply_time = now.strftime("%H:%M:%S")  # 댓글시간
+    reply_receive = request.form["reply_give"]  # 댓글내용
+    # user_id = request.form["user_id_give"]
+    movie_id = request.form["movie_id_give"]
+    print(reply_time, reply_receive, movie_id)
+    # doc = {"movie_id":movie_id, "user_id":user_id, "reply": reply_receive, "reply_time": reply_time}
+    doc = {"movie_id": movie_id, "reply": reply_receive, "reply_time": reply_time}
+    db.reply.insert_one(doc)
+    return jsonify({'result': 'success', 'msg': '댓글 등록 완료'})
 
 ##############################################
 
