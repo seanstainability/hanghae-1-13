@@ -13,8 +13,8 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 SECRET_KEY = 'HANGHAE213'
 
 # DB
-client = MongoClient('localhost', 27017)
-# client = MongoClient('mongodb://test:test@localhost', 27017)
+# client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.horror
 
 
