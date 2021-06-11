@@ -3,7 +3,11 @@
 <head>
 
     <!-- Webpage Title -->
+<<<<<<< HEAD
     <title>공포영화 | 납량특집</title>
+=======
+    <title>공포영화 납량특집</title>
+>>>>>>> aebe54871356427ad12bf1464bdaf25acd4000cc
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -62,19 +66,6 @@
         .help {
             color: gray;
         }
-
-        #div-sign-in-or-up > nav > button:hover {
-            background-color: #e8344e;
-            color: black;
-        }
-
-        {##}
-        {##container {#}
-        {#    display: flex;#}
-        {#    flex-direction: column;#}
-        {#    justify-content: flex-end;#}
-        {
-        #}#}
     </style>
 
 </head>
@@ -83,7 +74,11 @@
 <section class="hero">
     <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
         <h1 class="title is-sparta">공포영화 납량특집</h1>
+<<<<<<< HEAD
         <h3 class="subtitle is-sparta">😱 명작 공포 영화 순위 투표 사이트</h3>
+=======
+        <h3 class="subtitle is-sparta">😱 네이버 영화 여름 호러 영화 순위 투표 사이트</h3>
+>>>>>>> aebe54871356427ad12bf1464bdaf25acd4000cc
     </div>
 </section>
 <section class="section">
@@ -321,6 +316,7 @@
             },
             success: function (response) {
                 if (response['result'] == 'success') {
+                    alert("환영합니다!")
                     $.cookie('mytoken', response['token'], {path: '/'});
                     window.location.replace("/")
                 } else {

@@ -7,6 +7,10 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <link rel="icon" href="/static/ghosts.ico" type="image/x-icon">
 
     <link rel="icon" href="/static/ghosts.ico" type="image/x-icon">
 
@@ -61,13 +65,18 @@
 
     <script>
         let movie = '{{ movie }}'
+        let mv_id = '{{ movie.movie_id }}'
         let user_id = '{{ user_id }}'
+        let replies = '{{ replies }}'
+        let compare = '{{ compare }}'
         console.log(movie)
         console.log(user_id)
 
         function save_reply() {
             let reply_text = $('#reply_text').val()
             let mv_id = '{{ movie.movie_id }}'
+            let user_id = '{{ user_id }}'
+            
             $.ajax({
                 type: "POST",
                 url: `/api/save_reply`,
@@ -93,7 +102,7 @@
                 data: {
                     user_id_give: user_id,
                     movie_id_give: movie_id,
-                    rely_id_give: reply_id,
+                    reply_id_give: reply_id,
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -143,6 +152,7 @@
         <h3 style="color: crimson;">댓글 리스트</h3>
         <table class="$table-foot-background-color table-cell-border">
             <tbody class="tbody" id="reply_list">
+<<<<<<< HEAD
             {% for reply in replies %}
             <tr>
                 <th>{{reply.reply}}<p> {{reply.reply_time}}</p></th>
@@ -152,6 +162,19 @@
                     {# 삭제버튼 #}
                 </td>
             </tr>
+=======
+            {% for com in compare %}
+                <tr>
+                    <th><span style="color: orangered">{{ com.reply }}</span> <p> {{ com.time }}</p></th>
+                    <td>
+                        {% if com.user_id == com.now_id %}
+                        <button class="button is-danger is-outlined" onclick="delete_reply('{{ com._id }}')"
+                                style="margin-right: 5px"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                        {# 삭제버튼 #}
+                        {% endif %}
+                    </td>
+                </tr>
+>>>>>>> aebe54871356427ad12bf1464bdaf25acd4000cc
             {% endfor %}
 
             </tbody>

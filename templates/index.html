@@ -23,8 +23,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 
+<<<<<<< HEAD
         <link rel="icon" href="/static/ghosts.ico" type="image/x-icon">
 
+=======
+>>>>>>> aebe54871356427ad12bf1464bdaf25acd4000cc
     <title>홈 | 공포영화 납량특집</title>
 
     <!-- JS -->
@@ -68,16 +71,22 @@
                             <a href="#" target="_self"
                                class="star-name title is-4">{{ movie.title }}
                                 <br><br/>
-                                <button class="button is-danger is-outlined is-rounded">
-                                    <div class="card-image">
-                                        {% if movie.like_by_me %}
-                                            <i class="fas fa-heartbeat is-size-2"
-                                               onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
-                                        {% else %}
-                                            <i class="fas fa-heartbeat is-size-2"
-                                               onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
-                                        {% endif %}</i> {{ movie.like }}
-                                </button>
+                                {% if movie.like_by_me %}
+                                    <button class="button is-danger is-outlined is-rounded"
+                                            onclick="unlike('{{ movie._id }}', '{{ user_id }}');return false;"
+                                            style="background-color: #e8344e">
+                                        <div class="card-image">
+                                            <i class="fas fa-heartbeat is-size-2">
+                                            </i> {{ movie.like }} </div>
+                                    </button>
+                                {% else %}
+                                    <button class="button is-danger is-outlined is-rounded"
+                                            onclick="like('{{ movie._id }}', '{{ user_id }}');return false;">
+                                        <div class="card-image">
+                                            <i class="fas fa-heartbeat is-size-2">
+                                            </i> {{ movie.like }} </div>
+                                    </button>
+                                {% endif %}
                             </a>
                         </figure>
                     </div>
@@ -93,16 +102,22 @@
                                 <a href="#" target="_self"
                                    class="star-name title is-4">{{ movie.title }}
                                     <br><br/>
-                                    <button class="button is-danger is-outlined is-rounded">
-                                        <div class="card-image">
-                                            {% if movie.like_by_me %}
-                                                <i class="fas fa-heartbeat is-size-2"
-                                                   onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
-                                            {% else %}
-                                                <i class="fas fa-heartbeat is-size-2"
-                                                   onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
-                                            {% endif %}</i> {{ movie.like }} </div>
-                                    </button>
+                                    {% if movie.like_by_me %}
+                                        <button class="button is-danger is-outlined is-rounded"
+                                                onclick="unlike('{{ movie._id }}', '{{ user_id }}');return false;"
+                                                style="background-color: #e8344e">
+                                            <div class="card-image">
+                                                <i class="fas fa-heartbeat is-size-2">
+                                                </i> {{ movie.like }} </div>
+                                        </button>
+                                    {% else %}
+                                        <button class="button is-danger is-outlined is-rounded"
+                                                onclick="like('{{ movie._id }}', '{{ user_id }}');return false;">
+                                            <div class="card-image">
+                                                <i class="fas fa-heartbeat is-size-2">
+                                                </i> {{ movie.like }} </div>
+                                        </button>
+                                    {% endif %}
                                 </a></div>
                         </figure>
                     </div>
@@ -118,16 +133,22 @@
                                 <a href="#" target="_self"
                                    class="star-name title is-4">{{ movie.title }}
                                     <br><br/>
-                                    <button class="button is-danger is-outlined is-rounded">
-                                        <div class="card-image">
-                                            {% if movie.like_by_me %}
-                                                <i class="fas fa-heartbeat is-size-2"
-                                                   onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
-                                            {% else %}
-                                                <i class="fas fa-heartbeat is-size-2"
-                                                   onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
-                                            {% endif %}</i> {{ movie.like }}
-                                    </button>
+                                    {% if movie.like_by_me %}
+                                        <button class="button is-danger is-outlined is-rounded"
+                                                onclick="unlike('{{ movie._id }}', '{{ user_id }}');return false;"
+                                                style="background-color: #e8344e">
+                                            <div class="card-image">
+                                                <i class="fas fa-heartbeat is-size-2">
+                                                </i> {{ movie.like }} </div>
+                                        </button>
+                                    {% else %}
+                                        <button class="button is-danger is-outlined is-rounded"
+                                                onclick="like('{{ movie._id }}', '{{ user_id }}');return false;">
+                                            <div class="card-image">
+                                                <i class="fas fa-heartbeat is-size-2">
+                                                </i> {{ movie.like }} </div>
+                                        </button>
+                                    {% endif %}
                                 </a>
                         </figure>
                     </div>
@@ -156,16 +177,22 @@
                             <a href="#" target="_self"
                                class="star-name title is-4">{{ movie.title }}
                                 <br><br/>
-                                <button class="button is-danger is-outlined is-rounded">
-                                    <div class="card-image">
-                                        {% if movie.like_by_me %}
-                                            <i class="fas fa-heartbeat is-size-2"
-                                               onclick="unlike('{{ movie._id }}', '{{ user_id }}')"></i>
-                                        {% else %}
-                                            <i class="fas fa-heartbeat is-size-2"
-                                               onclick="like('{{ movie._id }}', '{{ user_id }}')"></i>
-                                        {% endif %}</i> {{ movie.like }}
-                                </button>
+                                {% if movie.like_by_me %}
+                                    <button class="button is-danger is-outlined is-rounded"
+                                            onclick="unlike('{{ movie._id }}', '{{ user_id }}');return false;"
+                                            style="background-color: #e8344e">
+                                        <div class="card-image">
+                                            <i class="fas fa-heartbeat is-size-2">
+                                            </i> {{ movie.like }} </div>
+                                    </button>
+                                {% else %}
+                                    <button class="button is-danger is-outlined is-rounded"
+                                            onclick="like('{{ movie._id }}', '{{ user_id }}');return false;">
+                                        <div class="card-image">
+                                            <i class="fas fa-heartbeat is-size-2">
+                                            </i> {{ movie.like }} </div>
+                                    </button>
+                                {% endif %}
                             </a>
                         </div>
                     </figure>
@@ -207,18 +234,9 @@
 <!--</script>-->
 <script>
     document.body.addEventListener('click', (e) => {
-        console.log(e.target)
-        const targetClassList = e.target.classList;
+        console.log(e.target.tagName)
 
-        if (targetClassList.contains('fa-heart-o')) {
-            targetClassList.remove('fa-heart-o');
-            targetClassList.toggle('fa-heart');
-
-        } else if (targetClassList.contains('fa-heart')) { // 좋아요 누른 버튼인 경우
-            targetClassList.remove('fa-heart');
-            targetClassList.toggle('fa-heart-o');
-
-        } else if (e.target.tagName === 'IMG') {
+        if (e.target.tagName === 'IMG') {
             movie_id = e.target.getAttribute('alt')
             let user_id = '{{ user_id }}'
             console.log(user_id)

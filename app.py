@@ -3,7 +3,7 @@ import jwt
 from bson import ObjectId
 from pymongo import MongoClient
 import hashlib
-import datetime
+from datetime import datetime, timedelta
 
 # Server
 app = Flask(__name__)
@@ -26,7 +26,7 @@ def main():
         # 복호화
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"user": payload['id']}, {"pw": 0})
-        movies = list(db.movie.find({}).sort("like", -1).limit(30))
+        movies = list(db.movie.find({}).sort("like", -1).limit(50))
         doc = []
         for movie in movies:
             isLiked = db.like.find_one({'user_id': ObjectId(user_info['_id']), 'movie_id': movie['_id']})
@@ -40,6 +40,7 @@ def main():
                     'like': movie['like'],
                     'like_by_me': True,
                 })
+                # print(True)
             else:
                 id = (str(ObjectId(movie['_id'])))
                 doc.append({
@@ -50,6 +51,7 @@ def main():
                     'like': movie['like'],
                     'like_by_me': False,
                 })
+                # print(False)
         print(doc)
         user_id = str(user_info['_id'])
         user = user_info['user']
@@ -94,7 +96,7 @@ def api_login():
     if result is not None:
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60 * 60 * 24)
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
             # 지금 + 24시간까지 유효하다.
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
@@ -189,22 +191,31 @@ def movie(movie_id, user_id):
                   'like': movies[0]['like'], 'rate': movies[0]['rate'], 'time': movies[0]['time'],
                   'desc': movies[0]['desc']}
     replies = list(db.reply.find({'movie_id': movie_id}))
-    # print(this_movie)
-    return render_template("movie.html", movie=this_movie, user_id=user_id, replies=replies)
+    
+    compare = []
+    for reply in replies:
+        _id = reply['_id']
+        reply_id = reply['user_id']
+        now_id = user_id
+        movie_id = reply['movie_id']
+        rep = reply['reply']
+        rep_time = reply['reply_time']
+        compare.append({'_id': _id, 'now_id': now_id, 'user_id': reply_id, 'movie_id': movie_id, 'reply': rep, 'time': rep_time})
+    
+    return render_template("movie.html", movie=this_movie, user_id=user_id, replies=replies, compare=compare)
 
 
 @app.route('/api/save_reply', methods=['POST'])
 def save_reply():
     #  저장하기
-    now = datetime.datetime.now()  # 시간
-    reply_time = now.strftime("%H:%M:%S")  # 댓글시간
+    now = datetime.now()  # 시간
+    reply_time = now.strftime("%y.%m.%d-%H:%M:%S")  # 댓글시간
     reply_receive = request.form["reply_give"]  # 댓글내용
-    # user_id = request.form["user_id_give"]
+    user_id = request.form["user_id_give"]
     movie_id = request.form["movie_id_give"]
-    user_id = request.form['user_id_give']
-    print(reply_time, reply_receive, movie_id, user_id)
+    print(reply_time, reply_receive, movie_id)
     # doc = {"movie_id":movie_id, "user_id":user_id, "reply": reply_receive, "reply_time": reply_time}
-    doc = {"movie_id": movie_id, "user_id": user_id, "reply": reply_receive, "reply_time": reply_time}
+    doc = {"movie_id": movie_id, "reply": reply_receive, "reply_time": reply_time, "user_id": user_id}
     db.reply.insert_one(doc)
     return jsonify({'result': 'success', 'msg': '댓글 등록 완료'})
 
@@ -213,15 +224,15 @@ def delete_reply():
     #  삭제하기
     user_id_receive = request.form["user_id_give"]  # 유저id
     movie_id_receive = request.form["movie_id_give"] #영화id
-    reply_id_receive = request.form["rely_id_give"] #댓글고유id
+    reply_id_receive = request.form["reply_id_give"] #댓글고유id
     print(reply_id_receive)
     print(user_id_receive)
     print(movie_id_receive)
-    db.reply.delete_one({'_id': ObjectId(reply_id_receive), 'user_id': ObjectId(user_id_receive)})
+    db.reply.delete_one({'_id': ObjectId(reply_id_receive)})
     return jsonify({'result': 'success', 'msg': '댓글 삭제 완료'})
 
 ##############################################
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5002, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
